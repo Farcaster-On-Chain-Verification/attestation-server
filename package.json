@@ -6,7 +6,9 @@
   },
   "type": "module",
   "dependencies": {
-    "@vercel/node": "^2.14.1"
+    "@ethereum-attestation-service/eas-sdk": "^1.5.0",
+    "@vercel/node": "^2.14.1",
+    "ethers": "^6.11.1"
   },
   "devDependencies": {
     "vercel": "^29.1.1"
