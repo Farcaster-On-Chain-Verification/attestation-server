@@ -1,0 +1,14 @@
+{
+  "name": "attestation-server",
+  "license": "MIT",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "type": "module",
+  "dependencies": {
+    "@vercel/node": "^2.14.1"
+  },
+  "devDependencies": {
+    "vercel": "^29.1.1"
+  }
+}
