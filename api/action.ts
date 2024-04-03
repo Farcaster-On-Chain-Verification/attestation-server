@@ -1,8 +1,8 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { ethers } from 'ethers';
-import { SchemaEncoder } from '@ethereum-attestation-service/eas-sdk';
-import { readFileSync } from 'fs';
-import path from 'path';
+import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { ethers } from "ethers";
+import { SchemaEncoder } from "@ethereum-attestation-service/eas-sdk";
+import { readFileSync } from "fs";
+import path from "path";
 
 const NEYNAR_URL = process.env.NEYNAR_URL ?? "";
 const NEYNAR_API_KEY = process.env.NEYNAR_API_KEY ?? "";
@@ -105,10 +105,7 @@ let pageWithLinkFromTemplate = (
 </html>
 `;
 
-let finalFrame = (
-  imageUrl: string,
-  body: string
-) => `
+let finalFrame = (imageUrl: string, body: string) => `
 <!DOCTYPE html>
 <html lang='en'>
 
@@ -132,32 +129,38 @@ let finalFrame = (
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
-    
     const body = req.body as FarcasterMessage;
 
     const response = await fetch(`${NEYNAR_URL}/farcaster/frame/validate`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        accept: 'application/json',
+        accept: "application/json",
         api_key: NEYNAR_API_KEY,
-        'content-type': 'application/json'
+        "content-type": "application/json",
       },
       body: JSON.stringify({
         cast_reaction_context: true,
         follow_context: true,
         signer_context: true,
-        message_bytes_in_hex: body.trustedData.messageBytes
-      })
+        message_bytes_in_hex: body.trustedData.messageBytes,
+      }),
     });
 
     const trustedData = await response.json();
 
     console.log(trustedData);
 
-    const { action: { interactor: { fid, verified_addresses: { eth_addresses } } } } = trustedData;
+    const {
+      action: {
+        interactor: {
+          fid,
+          verified_addresses: { eth_addresses },
+        },
+      },
+    } = trustedData;
 
-    console.log('fid', fid);
-    console.log('eth_addresses', eth_addresses[1]);
+    console.log("fid", fid);
+    console.log("eth_addresses", eth_addresses[1]);
 
     // TODO
     // Let the user choose which wallet to use
@@ -165,10 +168,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const customProvider = new ethers.JsonRpcProvider(RPC_PROVIDER);
 
-    const wallet = new ethers.Wallet(
-      FARCASTER_ATTESTOR,
-      customProvider
-    );
+    const wallet = new ethers.Wallet(FARCASTER_ATTESTOR, customProvider);
 
     console.log(`Wallet: ${wallet.address}`);
 
@@ -189,11 +189,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         expirationTime: BigInt(0),
         revocable: false,
         refUID: ethers.ZeroHash,
-        value: BigInt(0)
-      }
+        value: BigInt(0),
+      },
     };
 
-    let abiPath = path.join(process.cwd(), 'abi.json');
+    let abiPath = path.join(process.cwd(), "abi.json");
     let { abi } = JSON.parse(readFileSync(abiPath).toString());
 
     const contract = new ethers.Contract(EAS_CONTRACT, abi, wallet);
@@ -210,27 +210,30 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // console.log(`uid`, uid);
 
-    res.send(pageFromTemplate(
-      'https://ipfs.io/ipfs/QmawGYH6TdvxsC1zhMXtAPJcjy7R5yCMQ6SBmUrwGD5pNE',
-      'Refresh',
-      `${DOMAIN}/refresh?address=${eth_addresses[1]}`,
-      // `${DOMAIN}/refresh?uid=${uid}`,
-      mainPageBody
-    ))
-
+    res.send(
+      pageFromTemplate(
+        "https://ipfs.io/ipfs/QmawGYH6TdvxsC1zhMXtAPJcjy7R5yCMQ6SBmUrwGD5pNE",
+        "Refresh",
+        `${DOMAIN}/refresh?address=${eth_addresses[1]}`,
+        // `${DOMAIN}/refresh?uid=${uid}`,
+        mainPageBody
+      )
+    );
   } catch (err) {
-    let message = '';
+    let message = "";
     if (typeof err === "string") {
       message = err;
     } else if (err instanceof Error) {
       message = err.message;
     }
 
-    res.send(pageFromTemplate(
-      'https://ipfs.io/ipfs/QmawGYH6TdvxsC1zhMXtAPJcjy7R5yCMQ6SBmUrwGD5pNE',
-      message,
-      `${DOMAIN}/refresh`,
-      mainPageBody
-    ))
+    res.send(
+      pageFromTemplate(
+        "https://ipfs.io/ipfs/QmawGYH6TdvxsC1zhMXtAPJcjy7R5yCMQ6SBmUrwGD5pNE",
+        message,
+        `${DOMAIN}/refresh`,
+        mainPageBody
+      )
+    );
   }
 }
