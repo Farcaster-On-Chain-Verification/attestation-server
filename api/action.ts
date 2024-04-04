@@ -97,7 +97,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     res.send(
       pageFromTemplate(
-        "https://farcaster-on-chain-verification.s3.amazonaws.com/frame2.gif",
+        "https://ipfs.io/ipfs/QmayzUv699EusfZJHdFPzVTHky7v5iF3VxtK7pzsQHp3Fd",
         "Refresh",
         `${DOMAIN}/refresh?address=${eth_addresses[1]}`,
         // `${DOMAIN}/refresh?uid=${uid}`,
