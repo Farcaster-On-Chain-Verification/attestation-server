@@ -33,8 +33,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const trustedData = await response.json();
 
-    console.log(trustedData);
-
     const {
       action: {
         interactor: {
@@ -44,18 +42,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
     } = trustedData;
 
-    console.log("fid", fid);
-    console.log("eth_addresses", eth_addresses[0]);
-
-    // TODO
-    // Let the user choose which wallet to use
-    // Recast and follow
-
     const customProvider = new ethers.JsonRpcProvider(RPC_PROVIDER);
 
     const wallet = new ethers.Wallet(FARCASTER_ATTESTOR, customProvider);
-
-    console.log(`Wallet: ${wallet.address}`);
 
     const schemaEncoder = new SchemaEncoder("uint32 fid,uint64 timestamp");
 
@@ -63,8 +52,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       { name: "fid", type: "uint32", value: 111 },
       { name: "timestamp", type: "uint64", value: Date.now() },
     ]);
-
-    console.log(`encoded: ${encoded}`);
 
     const info = {
       schema: EAS_SCHEMA,
@@ -85,15 +72,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const tx = await contract.attest(info);
 
-    console.log(`Transaction sent with hash: ${tx.hash}`);
-
     tx.wait();
-
-    // const receipt = await tx.wait();
-
-    // const uid = receipt.logs[0].data;
-
-    // console.log(`uid`, uid);
 
     res.send(
       pageFromTemplate(
