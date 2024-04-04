@@ -12,67 +12,6 @@ const EAS_CONTRACT = process.env.EAS_CONTRACT ?? "";
 const EAS_SCHEMA = process.env.EAS_SCHEMA ?? "";
 const RPC_PROVIDER = process.env.RPC_PROVIDER ?? "";
 
-interface FarcasterMessage {
-  untrustedData: {
-    fid: number;
-    url: string;
-    messageHash: string;
-    timestamp: number;
-    network: number;
-    buttonIndex: number;
-    castId: {
-      fid: number;
-      hash: string;
-    };
-  };
-  trustedData: {
-    messageBytes: string;
-  };
-}
-
-const mainPageBody = `
-<div>
-        <h1>
-          Help build a trustful decentralized identity infrastructure ⛓️
-        </h1>
-        <p>
-          Verify your Farcaster account and claim your Gitcoin Passport stamp to improve your humanity and reputation score!
-        </p>
-        <p>
-            Go to <a href='https://warpcast.com/gonzalomelov/0x6631596f'>Warpcast</a> and complete the steps directly on the Frame!
-        </p>
-    </div>
-`;
-
-let pageFromTemplate = (
-  imageUrl: string,
-  button1Text: string,
-  apiUrl: string,
-  body: string
-) => `
-<!DOCTYPE html>
-<html lang='en'>
-
-<head>
-    <meta charset='utf-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1' />
-    <meta name='next-size-adjust' />
-    <meta property='fc:frame' content='vNext' />
-    <meta property='fc:frame:image' content='${imageUrl}' />
-    <meta property='fc:frame:button:1' content='${button1Text}' />
-    <meta property='fc:frame:post_url' content='${apiUrl}' />
-    <meta property='og:title' content='Azle farcaster frame' />
-    <meta property='og:image' content='${imageUrl}' />
-    <title>Azle farcaster frame</title>
-</head>
-
-<body>
-    ${body}
-</body>
-
-</html>
-`;
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const body = req.body as FarcasterMessage;
@@ -183,3 +122,64 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     );
   }
 }
+
+interface FarcasterMessage {
+  untrustedData: {
+    fid: number;
+    url: string;
+    messageHash: string;
+    timestamp: number;
+    network: number;
+    buttonIndex: number;
+    castId: {
+      fid: number;
+      hash: string;
+    };
+  };
+  trustedData: {
+    messageBytes: string;
+  };
+}
+
+const mainPageBody = `
+<div>
+        <h1>
+          Help build a trustful decentralized identity infrastructure ⛓️
+        </h1>
+        <p>
+          Verify your Farcaster account and claim your Gitcoin Passport stamp to improve your humanity and reputation score!
+        </p>
+        <p>
+            Go to <a href='https://warpcast.com/gonzalomelov/0x6631596f'>Warpcast</a> and complete the steps directly on the Frame!
+        </p>
+    </div>
+`;
+
+let pageFromTemplate = (
+  imageUrl: string,
+  button1Text: string,
+  apiUrl: string,
+  body: string
+) => `
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <meta name='next-size-adjust' />
+    <meta property='fc:frame' content='vNext' />
+    <meta property='fc:frame:image' content='${imageUrl}' />
+    <meta property='fc:frame:button:1' content='${button1Text}' />
+    <meta property='fc:frame:post_url' content='${apiUrl}' />
+    <meta property='og:title' content='Azle farcaster frame' />
+    <meta property='og:image' content='${imageUrl}' />
+    <title>Azle farcaster frame</title>
+</head>
+
+<body>
+    ${body}
+</body>
+
+</html>
+`;
