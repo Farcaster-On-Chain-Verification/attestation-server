@@ -172,9 +172,9 @@ let pageFromTemplate = (
     <meta property='fc:frame:image' content='${imageUrl}' />
     <meta property='fc:frame:button:1' content='${button1Text}' />
     <meta property='fc:frame:post_url' content='${apiUrl}' />
-    <meta property='og:title' content='Azle farcaster frame' />
+    <meta property='og:title' content='Farcaster On-Chain Verification' />
     <meta property='og:image' content='${imageUrl}' />
-    <title>Azle farcaster frame</title>
+    <title>Farcaster On-Chain Verification</title>
 </head>
 
 <body>
