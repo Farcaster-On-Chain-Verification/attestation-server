@@ -32,16 +32,14 @@ interface FarcasterMessage {
 
 const mainPageBody = `
 <div>
+        <h1>
+          Help build a trustful decentralized identity infraestructure ⛓️
+        </h1>
         <p>
-            This is a Farcaster frame using Azle (<a
-                href='https://github.com/demergent-labs/azle'>https://github.com/demergent-labs/azle</a>) hosted on the
-            <a href='https://internetcomputer.org'>Internet Computer</a>.
+          Verify your Farcaster account and claim your Gitcoin Passport stamp to improve your humanity and reputation score!
         </p>
         <p>
-            <a href='https://github.com/Gekctek/farcaster-frame-azle'>
-                Github
-                (https://github.com/Gekctek/farcaster-frame-azle)
-            </a>
+            Go to <a href='https://warpcast.com/gonzalomelov/0x6631596f'>Warpcast</a> and complete the steps directly on the Frame!
         </p>
     </div>
 `;
