@@ -75,58 +75,6 @@ let pageFromTemplate = (
 </html>
 `;
 
-let pageWithLinkFromTemplate = (
-  imageUrl: string,
-  button1Text: string,
-  apiUrl: string,
-  body: string
-) => `
-<!DOCTYPE html>
-<html lang='en'>
-
-<head>
-    <meta charset='utf-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1' />
-    <meta name='next-size-adjust' />
-    <meta property='fc:frame' content='vNext' />
-    <meta property='fc:frame:image' content='${imageUrl}' />
-    <meta property='fc:frame:button:1' content='${button1Text}' />
-    <meta property='fc:frame:button:1:action' content='link' />
-    <meta property='fc:frame:button:1:target' content='${apiUrl}' />
-    <meta property='og:title' content='Azle farcaster frame' />
-    <meta property='og:image' content='${imageUrl}' />
-    <title>Azle farcaster frame</title>
-</head>
-
-<body>
-    ${body}
-</body>
-
-</html>
-`;
-
-let finalFrame = (imageUrl: string, body: string) => `
-<!DOCTYPE html>
-<html lang='en'>
-
-<head>
-    <meta charset='utf-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1' />
-    <meta name='next-size-adjust' />
-    <meta property='fc:frame' content='vNext' />
-    <meta property='fc:frame:image' content='${imageUrl}' />
-    <meta property='og:title' content='Attestation Done!' />
-    <meta property='og:image' content='${imageUrl}' />
-    <title>Attestation Done!</title>
-</head>
-
-<body>
-    ${body}
-</body>
-
-</html>
-`;
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const body = req.body as FarcasterMessage;
@@ -212,7 +160,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     res.send(
       pageFromTemplate(
-        "https://ipfs.io/ipfs/QmawGYH6TdvxsC1zhMXtAPJcjy7R5yCMQ6SBmUrwGD5pNE",
+        "https://farcaster-on-chain-verification.s3.amazonaws.com/frame2.gif",
         "Refresh",
         `${DOMAIN}/refresh?address=${eth_addresses[1]}`,
         // `${DOMAIN}/refresh?uid=${uid}`,
