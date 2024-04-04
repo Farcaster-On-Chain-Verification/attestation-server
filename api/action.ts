@@ -45,7 +45,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     } = trustedData;
 
     console.log("fid", fid);
-    console.log("eth_addresses", eth_addresses[1]);
+    console.log("eth_addresses", eth_addresses[0]);
 
     // TODO
     // Let the user choose which wallet to use
@@ -69,7 +69,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const info = {
       schema: EAS_SCHEMA,
       data: {
-        recipient: eth_addresses[1],
+        recipient: eth_addresses[0],
         data: encoded,
         expirationTime: BigInt(0),
         revocable: false,
@@ -99,7 +99,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       pageFromTemplate(
         "https://ipfs.io/ipfs/QmayzUv699EusfZJHdFPzVTHky7v5iF3VxtK7pzsQHp3Fd",
         "Refresh",
-        `${DOMAIN}/refresh?address=${eth_addresses[1]}`,
+        `${DOMAIN}/refresh?address=${eth_addresses[0]}`,
         // `${DOMAIN}/refresh?uid=${uid}`,
         mainPageBody
       )
