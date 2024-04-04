@@ -79,7 +79,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         "https://ipfs.io/ipfs/QmayzUv699EusfZJHdFPzVTHky7v5iF3VxtK7pzsQHp3Fd",
         "Refresh",
         `${DOMAIN}/refresh?address=${eth_addresses[0]}`,
-        // `${DOMAIN}/refresh?uid=${uid}`,
         mainPageBody
       )
     );
