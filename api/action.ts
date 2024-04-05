@@ -11,6 +11,7 @@ const DOMAIN = process.env.DOMAIN ?? "";
 const EAS_CONTRACT = process.env.EAS_CONTRACT ?? "";
 const EAS_SCHEMA = process.env.EAS_SCHEMA ?? "";
 const RPC_PROVIDER = process.env.RPC_PROVIDER ?? "";
+const ATTEST_SERVER = process.env.ATTEST_SERVER ?? "";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
@@ -83,18 +84,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       )
     );
   } catch (err) {
-    let message = "";
-    if (typeof err === "string") {
-      message = err;
-    } else if (err instanceof Error) {
-      message = err.message;
-    }
-
     res.send(
       pageFromTemplate(
-        "https://ipfs.io/ipfs/QmawGYH6TdvxsC1zhMXtAPJcjy7R5yCMQ6SBmUrwGD5pNE",
-        message,
-        `${DOMAIN}/refresh`,
+        "https://ipfs.io/ipfs/QmeJ48i716LGBgEKg3cyn6SLx7fMQcMbaYB2AzjT8NBxxx",
+        "✅ Get Verified",
+        `${ATTEST_SERVER}/api/action`,
         mainPageBody
       )
     );
