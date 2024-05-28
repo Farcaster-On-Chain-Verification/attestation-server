@@ -37,7 +37,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const {
       action: {
         interactor: {
-          fid,
           verified_addresses: { eth_addresses },
         },
       },
